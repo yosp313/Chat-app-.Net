@@ -10,11 +10,11 @@ public class ChatRoom : Hub
         await Groups.AddToGroupAsync(Context.ConnectionId, conn.roomId);
         await Clients
             .Group(conn.roomId)
-            .SendAsync("RecieveMessage", "admin", $"{conn.userName} has joined");
+            .SendAsync("JoinGroup", "admin", $"{conn.userName} has joined");
     }
 
     public async Task SendMessage(UserConnection conn, string message)
     {
-        await Clients.Group(conn.roomId).SendAsync("RecieveMessage", conn.userName, message);
+        await Clients.Group(conn.roomId).SendAsync("SendMessage", conn.userName, message);
     }
 }

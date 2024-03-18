@@ -8,4 +8,9 @@ public class ChatController : Controller
     {
         return View();
     }
+
+    public IActionResult ChatRoom()
+    {
+        return View();
+    }
 }
