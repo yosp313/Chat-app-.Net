@@ -1,9 +1,10 @@
 "use strict";
 
-let connection = new signalR.HubConnectionBuilder().withUrl("/Hub").build();
+let connection = new signalR.HubConnectionBuilder().withUrl("/Room").build();
 
 //Disable the send button until connection is established.
 document.getElementById("sendButton").disabled = true;
+document.getElementById("joinButton").disabled = true;
 
 connection.on("ReceiveMessage", function (user, message) {
   let li = document.createElement("li");
@@ -28,8 +29,25 @@ document
   .addEventListener("click", function (event) {
     let user = document.getElementById("userInput").value;
     let message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", user, message).catch(function (err) {
-      return console.error(err.toString());
-    });
+    let roomId = document.getElementById("roomInput").value;
+    connection
+      .invoke("SendMessage", { user, roomId }, message)
+      .catch(function (err) {
+        return console.error(err.toString());
+      });
+    event.preventDefault();
+  });
+
+document
+  .getElementById("joinButton")
+  .addEventListener("click", function (event) {
+    let user = document.getElementById("userInput").value;
+    let roomId = document.getElementById("roomInput").value;
+    connection
+      .invoke("JoinGroup", { user, roomId })
+      .then(() => console.log(`${user} has joined`))
+      .catch(function (err) {
+        return console.error(err.toString());
+      });
     event.preventDefault();
   });
