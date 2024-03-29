@@ -1,0 +1,9 @@
+
+Todo:
+  [] Add so that each user can choose what is there preferred language @high 
+  [] Add the translating api @high 
+  [] Add the the feature that the messages get translated automatically @high 
+  [] Add nice styling @low 
+
+Optional:
+  [] Transform it from MVC to client/server with react as a frontend
