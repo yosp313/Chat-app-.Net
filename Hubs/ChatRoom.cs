@@ -5,16 +5,14 @@ namespace Chat_App.Hubs;
 
 public class ChatRoom : Hub
 {
-    public async Task JoinGroup(UserConnection conn)
+    public async Task JoinGroup(string roomId, string userName)
     {
-        await Groups.AddToGroupAsync(Context.ConnectionId, conn.roomId);
-        await Clients
-            .Group(conn.roomId)
-            .SendAsync("RecieveMessage", "admin", $"{conn.userName} has joined");
+        await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
+        await Clients.Group(roomId).SendAsync("RecieveMessage", "admin", $"{userName} has joined");
     }
 
-    public async Task SendMessage(UserConnection conn, string message)
+    public async Task SendMessage(string roomId, string userName, string message)
     {
-        await Clients.Group(conn.roomId).SendAsync("RecieveMessage", conn.userName, message);
+        await Clients.Group(roomId).SendAsync("ReceiveMessage", userName, message);
     }
 }
