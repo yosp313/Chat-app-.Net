@@ -6,6 +6,7 @@ Todo:
   [] Add nice styling @low 
   [X] Update the docker image @critical
   [] Add CI/CD (Jenkins or Github actions) @low 
+  [] Add database integration to save the chat history @high
 
 Optional:
   [] Transform it from MVC to client/server with react as a frontend
